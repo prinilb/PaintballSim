@@ -13,16 +13,22 @@ namespace PaintballSim
         private int balls = 0;
         private int ballsLoaded = 0;
 
-        public int GetBallsLoaded() { return ballsLoaded; } // mini method to find out how many balls are loaded in the gun
-        public bool IsEmpty() { return ballsLoaded == 0; } // mini method for when we run out of ammo (not really neccesary the way we're using the class)
-        public int GetBalls() { return balls; } // find out how much ammo we really got left
-        public void SetBalls(int numberOfBalls) 
+        public int BallsLoaded
         {
-            if (numberOfBalls > 0)
-                ballsLoaded = numberOfBalls;
-            Reload();
-            /* since the ballsLoaded variable is private (because encapsulation is a good thing), 
-               this is the only way we can actually change that variable */
+            get { return ballsLoaded; }
+            set { ballsLoaded = value; }
+        }
+        public bool IsEmpty() { return ballsLoaded == 0; } // mini method for when we run out of ammo (not really neccesary the way we're using the class)
+
+        public int Balls // dec;are the property
+        {
+            get { return balls; } // "getter" lets us access the balls we have left
+            set                   // "setter" lets us change the value of balls
+            {
+                if (value > 0)
+                    balls = value;
+                Reload();
+            }
         }
 
         public void Reload()
@@ -32,7 +38,6 @@ namespace PaintballSim
             else
                 ballsLoaded = balls; // or just fills up with whatever is left for ammo
         }
-
         public bool Shoot() // gotta be able to shoot our gun
         {
             if (ballsLoaded == 0) return false; // out of ammo :(
